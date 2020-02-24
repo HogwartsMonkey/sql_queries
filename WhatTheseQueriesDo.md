@@ -10,3 +10,9 @@ This week vs the Last four week featuring selected metrics. sorted in a manner t
 fq-com-days-comparison-running-totals-today:
 
 Today vs. the same day in the last four weeks featuring selected metrics hourly. sorted in a manner that would make it easiar to create a hourly day-over-day line chart and visually detect trends.
+
+month-over-month:
+month over month marketing performance featuring selected metrics
+
+mtd-yoy-comparison:
+mtd current year vs mtd last year (changes in selected meterics year over year)
