@@ -18,3 +18,7 @@ month over month marketing performance featuring selected metrics
 mtd-yoy-comparison:
 
 mtd current year vs mtd last year (changes in selected meterics year over year)
+
+performance-by-date:
+
+selected metrics grouped by date, day over day
