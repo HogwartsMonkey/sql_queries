@@ -1,5 +1,6 @@
 DECLARE @Current_Month INT = DATEPART(month,getdate())
 DECLARE @Last_Year INT = DATEPART(year,DATEADD(YEAR,-1,getdate()))
+DECLARE @Today INT = DATEPART(DAY,getdate())
 
 
 Declare @MTD_YoY TABLE(
@@ -359,8 +360,9 @@ INSERT INTO @MTD_YoY (_year,_month,ranking,cost,impressions,clicks,signups,full_
 			SUM(new_deposit_previous_month)
 
 		FROM performance_by_date
-
-		WHERE month = @Current_Month
+		WHERE day_of_month >= 1
+		AND day_of_month <@Today
+		AND month = @Current_Month
 		AND year >= @Last_Year
 		
 
@@ -384,7 +386,8 @@ SELECT
 	first_deposit_same_month,
 	first_deposit_previous_month,
 	new_deposit_same_month,
-	new_deposit_previous_month
+	new_deposit_previous_month,
+	(first_deposit_same_month+first_deposit_previous_month+new_deposit_same_month+new_deposit_previous_month) AS 'Total Purchases'
 
 
 
