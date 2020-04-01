@@ -1,10 +1,11 @@
-DECLARE @Today INT = DATEPART(DAY,getdate())
-DECLARE @Current_Month INT = DATEPART(month,getdate())
-DECLARE @Current_Month_Year INT = DATEPART(month,getdate())
-DECLARE @Previous_Month INT =DATEPART(MONTH,DATEADD(MONTH,-1,GETDATE()))
-DECLARE @Previous_Month_Year INT =DATEPART(YEAR,DATEADD(MONTH,-1,GETDATE()))
-DECLARE @Previous_Year INT =DATEPART(YEAR,DATEADD(YEAR,-1,GETDATE()))
-DECLARE @_7daysAgo INT = DATEPART(DAY,DATEADD(day,-7,GETDATE()))
+DECLARE @Selected DATE = DATEADD(DAY,-3,getdate())
+DECLARE @CurrentDay INT = DATEPART(DAY,@Selected)
+DECLARE @Current_Month INT = DATEPART(month,@Selected)
+DECLARE @Current_Month_Year INT = DATEPART(month,@Selected)
+DECLARE @Previous_Month INT =DATEPART(MONTH,DATEADD(MONTH,-1,@Selected))
+DECLARE @Previous_Month_Year INT =DATEPART(YEAR,DATEADD(MONTH,-1,@Selected))
+DECLARE @Previous_Year INT =DATEPART(YEAR,DATEADD(YEAR,-1,@Selected))
+DECLARE @_7daysAgo INT = DATEPART(DAY,DATEADD(day,-7,@Selected))
 
 
 Declare @ThisWeek TABLE(
@@ -360,7 +361,7 @@ INSERT INTO @ThisWeek (_year,_month,ranking,cost,impressions,clicks,signups,full
 			SUM(new_deposit_previous_month)
 			FROM performance_by_date
 
-			WHERE day_number <@Today
+			WHERE day_number <=@CurrentDay
 			AND month in (@Current_Month,@Previous_Month)
 			AND year in (@Previous_Month_Year,@Current_Month_Year)
 			
@@ -381,10 +382,10 @@ SELECT
 	Previous_Months_FTD,
 	(Same_Month_FTD+Previous_Months_FTD) AS 'Total FTD',
 	ROUND(cost/(Same_Month_FTD+Previous_Months_FTD),2) AS avg_firstimepurchaser_cost,
-	first_deposit_same_month,
-	first_deposit_previous_month,
-	new_deposit_same_month,
-	new_deposit_previous_month,
+	--first_deposit_same_month,
+	--first_deposit_previous_month,
+	--new_deposit_same_month,
+	--new_deposit_previous_month,
 	(first_deposit_same_month+first_deposit_previous_month+new_deposit_same_month+new_deposit_previous_month) AS 'Total Purchases'
 
 
