@@ -1,5 +1,5 @@
 SELECT
-	CONVERT(varchar,performance_by_date.Day,101) AS 'date',
+	performance_by_date.Day AS 'date',
 	YEAR(performance_by_date.[Day]) AS 'year',
 	MONTH(performance_by_date.[Day]) AS 'month',
 	day_number,
@@ -29,6 +29,8 @@ FROM
 
 FROM dbo.[jubiter-adgroup-report]
 
+--WHERE Campaign  NOT IN ('US - Generics - Bitcoin - Dynamic Search Ads - DSA_Desktop','US - Generics - Bitcoin - Dynamic Search Ads - DSA_Mobile')
+
 GROUP BY [Day]) AS performance_by_date
 
 LEFT JOIN (SELECT
@@ -56,7 +58,8 @@ LEFT JOIN (SELECT
 								RANK() OVER (PARTITION BY userid ORDER BY transaction_dt ASC) AS transaction_ranked
 
 					FROM dbo.[jubiter-transaction-report] 
-				
+
+					WHERE transaction_type = 'Buy'
 					GROUP BY transaction_dt,userid) AS i
 
 				GROUP BY
@@ -80,8 +83,8 @@ LEFT JOIN (SELECT
 
 
 		WHERE transaction_ranked= 1
-		AND b.month != month_of_reg.month
-		AND b.year >= month_of_reg.year
+		AND ((b.month != month_of_reg.month AND b.year >= month_of_reg.year) OR (b.month != month_of_reg.month AND b.year < month_of_reg.year))
+		 
 	
 		GROUP BY transaction_date) AS FTDs_Previous_Month 
 
@@ -113,6 +116,8 @@ LEFT JOIN (SELECT
 
 					FROM dbo.[jubiter-transaction-report] 
 				
+					WHERE transaction_type = 'Buy'
+
 					GROUP BY transaction_dt,userid) AS i
 
 				GROUP BY
@@ -311,6 +316,6 @@ FROM
 
 ON performance_by_date.Day = new_deposit_previous_month.transaction_date
 
-WHERE day>= '20200101'
+WHERE day >= '20200401'
 
 ORDER BY Day ASC
