@@ -5,7 +5,7 @@ Discover purchase frequency distribution, total_amount distribution by number of
 
 day-by-day-comparison-week-over-week:
 
-This week vs the Last four week featuring selected metrics. sorted in a manner that would make it easiar to create a week-over-week line chart and visually detect trends
+This week vs the last four week featuring selected metrics. sorted in a manner that would make it easier to create a week-over-week line chart and visually detect trends
 
 fq-com-days-comparison-running-totals-today:
 
@@ -13,11 +13,11 @@ Today vs. the same day in the last four weeks featuring selected metrics hourly.
 
 month-over-month:
 
-month over month marketing performance featuring selected metrics
+marketing performance from selected sources MoM featuring selected metrics
 
 mtd-yoy-comparison:
 
-mtd current year vs mtd last year (changes in selected meterics year over year)
+mtd current year vs mtd last year (shows changes in selected meterics YoY)
 
 performance-by-date:
 
