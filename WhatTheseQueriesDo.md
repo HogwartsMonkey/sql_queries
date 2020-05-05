@@ -13,7 +13,7 @@ Today vs. the same day in the last four weeks featuring selected metrics hourly.
 
 month-over-month:
 
-marketing performance from selected sources MoM featuring selected metrics
+google paid performance MoM featuring selected metrics
 
 mtd-yoy-comparison:
 
