@@ -2,7 +2,7 @@ SELECT
 	performance_by_date.Day AS 'date',
 	YEAR(performance_by_date.[Day]) AS 'year',
 	MONTH(performance_by_date.[Day]) AS 'month',
-    CASE WHEN DATEDIFF(month,[Day],GETDATE())<=1 THEN 'TRUE' ELSE 'FALSE' END AS current_month_and_previous_month,
+    CASE WHEN DATEDIFF(month,[Day],GETDATE())<=3 THEN 'TRUE' ELSE 'FALSE' END AS current_month_and_previous_month,
     CASE WHEN day_number < DATEPART(day,GETDATE()) THEN 'TRUE' ELSE 'FALSE' END AS is_day_in_timeframe,
     CASE WHEN datediff(day,[Day],GETDATE())=1 THEN 'TRUE' ELSE 'FALSE' END AS isYesterday,
      CASE WHEN datediff(month,[Day],GETDATE())=0 THEN 'TRUE' ELSE 'FALSE' END AS isCurrentMonth,
@@ -95,10 +95,9 @@ LEFT JOIN (SELECT
 
 			ON b.userid = month_of_reg.userid
 
-
 		WHERE transaction_ranked= 1
-		AND ((b.month != month_of_reg.month AND b.year >= month_of_reg.year) OR (b.month != month_of_reg.month AND b.year < month_of_reg.year))
-		 
+		AND b.month != month_of_reg.month
+		AND b.year >= month_of_reg.year
 	
 		GROUP BY transaction_date) AS FTDs_Previous_Month 
 
@@ -329,4 +328,6 @@ FROM
 	GROUP BY transaction_date) AS new_deposit_previous_month
 
 ON performance_by_date.Day = new_deposit_previous_month.transaction_date
+
+WHERE [Day] BETWEEN '20200401'AND '20200430'
 
